@@ -1,15 +1,11 @@
 var Sequelize = require('sequelize');
-var WebmakerUserClient = require('webmaker-user-client');
 var hatchet = require('hatchet');
 
-module.exports = function(options, login_url_with_auth, events_url) {
+module.exports = function(options, userClient, events_url) {
 
   options = options || {};
 
   var sequelize;
-  var userClient = new WebmakerUserClient({
-    endpoint: login_url_with_auth
-  });
 
   // MySQL with settings
   if (options.dialect === 'mysql' && options.database) {

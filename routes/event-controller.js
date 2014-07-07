@@ -362,7 +362,7 @@ module.exports = function (db, userClient) {
     post: function (req, res) {
       // Verify event body
       if (!req.body) {
-        return res.send(401, 'You may not create an empty event');
+        return res.send(400, 'You may not create an empty event');
       }
 
       // Verify login

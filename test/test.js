@@ -45,14 +45,15 @@ describe('app', function() {
   // Server and db config
   Habitat.load('.env-test');
   var env = new Habitat();
+
+  //Mocks
+  var mocks = require('./mocks');
   var db = require('../models')({
-    db: env.get('DB_NAME'),
-    user: env.get('DB_USER'),
-    password: env.get('DB_PASSWORD'),
     storage: env.get('STORAGE')
-  });
-  var app = require('../config')(env, db);
+  }, mocks.userClient, env.get('EVENTS_FRONTEND_URL'));
+  var app = require('../config')(env, db, mocks.auth, mocks.userClient);
   var server;
+  app.use(mocks.addFakeUser);
   require('../routes')(env, app, db);
 
   before(function(done) {
